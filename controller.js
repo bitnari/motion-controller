@@ -68,3 +68,5 @@ class Controller{
 		return router;
 	}
 }
+
+module.exports = Controller;
