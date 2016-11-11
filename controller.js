@@ -65,8 +65,6 @@ class Controller{
 			}
 		});
 
-		router.get('/:token/', (req, res, next) => {
-
-		});
+		return router;
 	}
 }
