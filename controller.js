@@ -9,7 +9,7 @@ class Controller{
 	static bindSocket(socket){
 		users[socket.id()] = {
 			socket,
-			token: undefined;
+			token: undefined
 		};
 
 		socket.on('generate token', () => {
@@ -32,7 +32,7 @@ class Controller{
 		socket.on('event', (e) => {
 			let bind = users[socket.id()].bind;
 			if(bind && users[bind]){
-				((users[bind].socket || {}).emit || () => {})('event', e);
+				((users[bind].socket || {}).emit || (() => {}))('event', e);
 			}
 		})
 
