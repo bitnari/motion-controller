@@ -14,13 +14,13 @@ class Controller{
 
 		socket.on('generate token', () => {
 			let token = generateToken(5);
-			(users[socket.id] || {}).token = socket.token;
+			(users[socket.id] || {}).token = token;
 			socket.emit('generate token', token);
 		});
 
 		socket.on('bind device', (token) => {
 			if(typeof token !== 'string') return;
-			let res = Object.keys(users).map((k) => v).every((v) => {
+			let res = Object.keys(users).map((k) => users[k]).every((v) => {
 				if(v.token === token){
 					v.bind = socket.id;
 					users[socket.id].bind = v.socket.id;
@@ -30,17 +30,20 @@ class Controller{
 				return true;
 			});
 
-			socket.emit('bind device', res);
+			socket.emit('bind device', !res);
 		});
 
 		socket.on('event', (e) => {
 			let bind = users[socket.id].bind;
-			if(bind && users[bind]){
-				((users[bind].socket || {}).emit || (() => {}))('event', e);
+			if(bind && users[bind] && users[bind].socket && users[bind].socket.emit){
+				users[bind].socket.emit('event', e);
 			}
 		})
 
 		socket.on('disconnect', () => {
+			if(users[socket.id].bind && users[users[socket.id].bind]){
+				users[users[socket.id].bind].bind = undefined;
+			}
 			users[socket.id] = undefined;
 			delete users[socket.id];
 		});
