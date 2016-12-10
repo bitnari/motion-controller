@@ -24,7 +24,7 @@ class Controller{
 				if(v.token === token){
 					v.bind = socket.id;
 					users[socket.id].bind = v.socket.id;
-
+					v.socket.emit('bind device', true);
 					return false;
 				}
 				return true;
