@@ -1,6 +1,6 @@
 {
   "name": "motion-controller",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Use devicemotion on mobile to control pc site",
   "main": "controller.js",
   "scripts": {
