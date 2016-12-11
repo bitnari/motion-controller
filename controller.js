@@ -33,10 +33,10 @@ class Controller{
 			socket.emit('bind device', !res);
 		});
 
-		socket.on('event', (e) => {
+		socket.on('e', (e) => {
 			let bind = users[socket.id].bind;
 			if(bind && users[bind] && users[bind].socket && users[bind].socket.emit){
-				users[bind].socket.emit('event', e);
+				users[bind].socket.emit('e', e);
 			}
 		})
 
